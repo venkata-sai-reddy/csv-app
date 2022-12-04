@@ -29,7 +29,7 @@ public class CSVController {
 	@PostMapping("/upload")
 	public ResponseEntity<Boolean> uploadFile(@RequestParam("file") MultipartFile file) {
 		try {
-		           List<Users> users = CSVHelper.csvToTutorials(file.getInputStream());
+		           List<Users> users = CSVHelper.csvToObject(file.getInputStream());
 		           service.upload(users);
 		           return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		      } catch (Exception e) {
@@ -56,7 +56,7 @@ public class CSVController {
 		return new ResponseEntity<>(service.deleteRecord(id), HttpStatus.OK);
 	}
 	
-	@GetMapping("/retrive")
+	@GetMapping("/retrieve")
 	public ResponseEntity<List<Users>> getRecords(@RequestBody UsersRequest request){
 		
 		return new ResponseEntity<>(service.getRecords(request), HttpStatus.OK);

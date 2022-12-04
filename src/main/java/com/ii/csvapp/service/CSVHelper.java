@@ -11,24 +11,15 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.ii.csvapp.entity.Users;
 
 @Service
 public class CSVHelper {
-	public static String TYPE = "text/csv";
+	
 	static String[] HEADERs = { "Id", "last_name", "first_name", "email", "gender", "dob", "role" };
 
-	public static boolean hasCSVFormat(MultipartFile file) {
-		if (TYPE.equals(file.getContentType()) || file.getContentType().equals("application/vnd.ms-excel")) {
-			return true;
-		}
-
-		return false;
-	}
-
-	public static List<Users> csvToTutorials(InputStream is) {
+	public static List<Users> csvToObject(InputStream is) {
 		try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
 				CSVParser csvParser = new CSVParser(fileReader,
 						CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());) {
