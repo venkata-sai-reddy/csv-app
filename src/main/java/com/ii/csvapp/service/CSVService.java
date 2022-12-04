@@ -51,13 +51,13 @@ public class CSVService {
 		String role = request.getRole() == null ? "":request.getRole();
 		int page = request.getPageNo() == 0 ? 1: request.getPageNo();
 		int records = request.getPageRecords() == 0 ? 20: request.getPageRecords();
-		users = users.stream().filter(user -> user.getFirst_name().contains(firstName))
-		.filter(user -> user.getLast_name().contains(lastName))
-		.filter(user -> user.getRole().contains(role))
+		users = users.stream().filter(user -> user.getFirst_name().contains(firstName) 
+				&& user.getLast_name().contains(lastName)
+				&& user.getRole().contains(role))
 		.collect(Collectors.toList());
 		
 		if(page*records >= users.size()) {
-			return users.subList(0, records);
+			return users.subList(0, users.size());
 		}
 		return users.subList((page-1)*records, page*records);
 	}
